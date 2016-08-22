@@ -69,7 +69,7 @@ RequestLocalStorage.patch(require('cls-q'));
 
 ### Find out more
 
-Check out the [design doc](/docs/design)
+Check out the [design doc](/docs/design.md)
 
 [build-badge-img]: https://travis-ci.org/redfin/request-local-storage.svg?branch=master
 [build-url]: https://travis-ci.org/redfin/request-local-storage
