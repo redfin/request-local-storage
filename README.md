@@ -59,6 +59,30 @@ function handle(req, res, next) { RequestLocalStorage.startRequest(() => {
 In the browser you don't need to wrap a function.  Just call
 `RequestLocalStorage.startRequest()` whenever you start a new request.
 
+### What is `Error: RLS() access outside of request!`?
+
+It is an error to call the `RLS()` function returned by `getNamespace()`
+outside of a request context.  If you see this error it _usually_ means
+either:
+
+- Something asynchronous hasn't been [patched](#patching-3rd-party-packages).
+- Something is getting called when you don't expect it to.
+
+If you are _sure_ that you need to call `RLS()` from someplace where you don't
+know ahead of time whether you'll be in a request context or not, you can use
+the `RLS.isActive()` helper to check and avoid a `try/catch`.
+
+```javascript
+const RLS = require('request-local-storage').getNamespace();
+
+function getCurrentFoo() {
+  if (RLS.isActive()) {
+    return RLS().foo;
+  }
+  return null;
+}
+```
+
 ### Patching 3rd party packages
 
 Need to patch `Q` or some other package?  No problem!
