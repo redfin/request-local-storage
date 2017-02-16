@@ -48,4 +48,6 @@ var namespaces         = 0
 	return getter;
 }
 
-module.exports = { getNamespace, getCountNamespaces, startRequest, bind, patch };
+module.exports = global.requestLocalStorage || { getNamespace, getCountNamespaces, startRequest, bind, patch };
+
+if (!global.requestLocalStorage) global.requestLocalStorage = module.exports;
