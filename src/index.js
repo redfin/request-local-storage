@@ -48,6 +48,8 @@ var namespaces         = 0
 	return getter;
 }
 
-module.exports = global.requestLocalStorage || { getNamespace, getCountNamespaces, startRequest, bind, patch };
+global.requestLocalStorage = global.requestLocalStorage || {};
 
-if (!global.requestLocalStorage) global.requestLocalStorage = module.exports;
+module.exports = global.requestLocalStorage[REQUEST_LOCAL_STORAGE_VERSION] || { getNamespace, getCountNamespaces, startRequest, bind, patch };
+
+if (!global.requestLocalStorage[REQUEST_LOCAL_STORAGE_VERSION]) global.requestLocalStorage[REQUEST_LOCAL_STORAGE_VERSION] = module.exports;
