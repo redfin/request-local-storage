@@ -10,6 +10,7 @@
     "node": true
   },
   "globals": {
+    "REQUEST_LOCAL_STORAGE_VERSION": false,
     "SERVER_SIDE": false
   },
   "rules": {
