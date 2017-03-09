@@ -1,6 +1,6 @@
 {
   "name": "request-local-storage",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Simple access to objects tied to requests",
   "main": "index.js",
   "browser": "browser.js",
