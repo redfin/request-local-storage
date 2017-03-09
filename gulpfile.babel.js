@@ -6,6 +6,7 @@ const path = require('path');
 const eslint = require('gulp-eslint');
 const replace = require("gulp-replace");
 const uglify = require("gulp-uglify");
+const packageJson = require("./package.json");
 
 gulp.task('nsp', (cb) => nsp({package: path.resolve('package.json')}, cb));
 
@@ -20,6 +21,7 @@ const compress = [
 const compile = server => gulp.src(["src/**/*.js"])
 	.pipe(babel())
 	.pipe(replace("SERVER_SIDE", server ? "true" : "false"))
+	.pipe(replace("REQUEST_LOCAL_STORAGE_VERSION", JSON.stringify(packageJson.version)))
 	.pipe(uglify({compress, mangle: false, output: {beautify: true}}))
 	.pipe(gulp.dest("./lib/"+(server?"server/":"browser/")));
 
