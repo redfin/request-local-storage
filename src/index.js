@@ -30,19 +30,13 @@ var namespaces         = 0
 
 	// This is guarded against old versions of node that don't provide the
 	// necessary API (bamboo).
-	if (SERVER_SIDE && Object.observe) {
-
-		Object.observe(getter, changes => {
-
+	if (SERVER_SIDE && Proxy) {
+		getter = new Proxy(getter, {set: function(target, prop, value) {
 			// It's easy to make the mistake of using `RLS.foo`
 			// instead of `RLS().foo`, but this is actually a very
 			// bad error server-side.  It's a leak across requests.
-			throw new Error(`Use of "RLS.${
-				changes[0].name
-			}" should be "RLS().${
-				changes[0].name
-			}"!`);
-		});
+			throw new Error(`Use of "RLS.${prop}" should be "RLS().${prop}"!`);
+		}});
 	}
 
 	return getter;
